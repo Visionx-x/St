@@ -6,31 +6,33 @@ from pyrogram.errors import ChatAdminRequired, UserNotParticipant, ChatWriteForb
 
 
 @Client.on_message(filters.incoming & filters.private, group=-1)
-async def must_join_channel(bot: Client, msg: Message):
+async def must_join_channels(bot: Client, msg: Message):
     if not MUST_JOIN:
         return
-    try:
+
+    not_joined_channels = []
+    for channel in MUST_JOIN:
         try:
-            await bot.get_chat_member(MUST_JOIN, msg.from_user.id)
+            await bot.get_chat_member(channel, msg.from_user.id)
         except UserNotParticipant:
-            if MUST_JOIN.isalpha():
-                link = "https://t.me/" + MUST_JOIN
+            if channel.isalpha():
+                link = "https://t.me/" + channel
             else:
-                chat_info = await bot.get_chat(MUST_JOIN)
+                chat_info = await bot.get_chat(channel)
                 link = chat_info.invite_link
-            try:
-                await msg.reply_photo(
-                    photo="https://telegra.ph/file/20d1bcedcf901bed9bf65.jpg", caption=f"» ғɪʀsᴛ ʏᴏᴜ ɴᴇᴇᴅ ᴛᴏ Jᴏɪɴ ᴏᴜʀ ᴄʜᴀɴɴᴇʟ [𝖩𝖮𝖨𝖭]({link}) ᴀғᴛᴇʀ Jᴏɪɴ sᴛᴀʀᴛᴇᴅ ᴍᴇ ᴀɢᴀɪɴ !",
-                    reply_markup=InlineKeyboardMarkup(
-                        [
-                            [
-                                InlineKeyboardButton("Jᴏɪɴ", url=link),
-                            ]
-                        ]
-                    )
-                )
-                await msg.stop_propagation()
-            except ChatWriteForbidden:
-                pass
-    except ChatAdminRequired:
-        print(f"๏ᴘʀᴏᴍᴏᴛᴇ ᴍᴇ ᴀs ᴀɴ ᴀᴅᴍɪɴ ɪɴ ᴛʜᴇ ᴍᴜsᴛ_Jᴏɪɴ ᴄʜᴀᴛ ๏")
+            not_joined_channels.append(link)
+        except ChatAdminRequired:
+            print(f"Please promote me as an admin in the {channel} chat")
+
+    if not_joined_channels:
+        buttons = [InlineKeyboardButton("Join", url=link) for link in not_joined_channels]
+        try:
+            await msg.reply_photo(
+                photo="https://telegra.ph/file/20d1bcedcf901bed9bf65.jpg",
+                caption="» First, you need to join our channels before you can start messaging again!",
+                reply_markup=InlineKeyboardMarkup([buttons])
+            )
+            await msg.stop_propagation()
+        except ChatWriteForbidden:
+            pass
+            
