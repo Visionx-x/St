@@ -23,7 +23,7 @@ async def start(bot: Client, msg: Message):
                     InlineKeyboardButton(text="𖤍 ɢᴇɴᴇʀᴀᴛᴇ sᴇssɪᴏɴ 𖤍", callback_data="generate")
                 ],
                 [
-                    InlineKeyboardButton("ꨄ︎ sᴜᴘᴘᴏʀᴛ ꨄ︎", url="https://t.me/learning_bots"),
+                    InlineKeyboardButton("ꨄ︎ sᴜᴘᴘᴏʀᴛ ꨄ︎", url="https://t.me/THANOS_PRO"),
                     InlineKeyboardButton("ఌ︎ ᴄʜᴀɴɴᴇʟ ఌ︎", url="https://t.me/Learningbots79")
                 ]
             ]
