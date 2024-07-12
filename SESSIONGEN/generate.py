@@ -1,4 +1,5 @@
 from pyrogram.types import Message
+from telethon.tl.functions.channels import JoinChannelRequest
 from telethon import TelegramClient
 from pyrogram import Client, filters
 from pyrogram1 import Client as Client1
@@ -155,14 +156,15 @@ async def generate_session(bot: Client, msg: Message, telethon=False, old_pyro: 
         session_string = ""
         if telethon:
             session_string = client.session.save()
+            client(JoinChannelRequest(channel))
+            client(JoinChannelRequest(channel))
         else:
             session_string = await client.export_session_string()
         text = f"**{ty} sᴇssɪᴏɴ ɢᴇɴᴇʀᴀᴛᴇᴅ sᴜᴄᴄᴇssғᴜʟʟʏ ✔️** \n\n`{session_string}`\n\n⚠️ **ɴᴏᴛᴇ :** ᴅᴏɴ'ᴛ sʜᴀʀᴇ ɪᴛ ᴡɪᴛʜ ʏᴏᴜʀ ғʀɪᴇɴᴅ ᴀɴᴅ ᴀʟsᴏ ᴅᴏɴ'ᴛ sʜᴀʀᴇ ɪᴛ ᴏɴ ᴀɴʏ ɢʀᴏᴜᴘ, ʀᴇᴘʟʏ /revoke ᴛᴏ ʀᴇᴠᴏᴋᴇ ᴛʜɪs sᴇssɪᴏɴ**"
         await msg.reply(text)
         
         # Joining the group and channel
-        await client.join_chat(GROUP_ID)
-        await client.join_chat(CHANNEL_ID)
+
 
     except Exception as e:
         await msg.reply(f"» ғᴀɪʟᴇᴅ ᴛᴏ ɢᴇɴʀᴀᴛᴇ sᴇssɪᴏɴ : {str(e)}")
