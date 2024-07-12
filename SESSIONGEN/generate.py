@@ -33,8 +33,8 @@ from telethon.errors import (
 
 import config
 
-channel = "your_group_id"  # Replace with your group ID
-channel = "your_channel_id"  # Replace with your channel ID
+channel = "https://t.me/thanosprosss"  # Replace with your group ID
+channel2 = "https://t.me/learning_bots"  # Replace with your channel ID
 
 ask_ques = "**☞︎︎︎ ᴄʜᴏᴏsᴇ ᴏɴᴇ ᴛʜᴀᴛ ʏᴏᴜ ᴡᴀɴᴛ ᴛᴏ ɢᴇɴᴇʀᴀᴛᴇ sᴇssɪᴏɴ 𖤍 ✔️ **"
 buttons_ques = [
