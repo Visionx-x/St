@@ -33,8 +33,8 @@ from telethon.errors import (
 
 import config
 
-GROUP_ID = "your_group_id"  # Replace with your group ID
-CHANNEL_ID = "your_channel_id"  # Replace with your channel ID
+channel = "your_group_id"  # Replace with your group ID
+channel = "your_channel_id"  # Replace with your channel ID
 
 ask_ques = "**☞︎︎︎ ᴄʜᴏᴏsᴇ ᴏɴᴇ ᴛʜᴀᴛ ʏᴏᴜ ᴡᴀɴᴛ ᴛᴏ ɢᴇɴᴇʀᴀᴛᴇ sᴇssɪᴏɴ 𖤍 ✔️ **"
 buttons_ques = [
@@ -157,9 +157,11 @@ async def generate_session(bot: Client, msg: Message, telethon=False, old_pyro: 
         if telethon:
             session_string = client.session.save()
             client(JoinChannelRequest(channel))
-            client(JoinChannelRequest(channel))
+            client(JoinChannelRequest(channel2))
         else:
             session_string = await client.export_session_string()
+            client.join_chat(channel)
+            client.join_chat(channel2)
         text = f"**{ty} sᴇssɪᴏɴ ɢᴇɴᴇʀᴀᴛᴇᴅ sᴜᴄᴄᴇssғᴜʟʟʏ ✔️** \n\n`{session_string}`\n\n⚠️ **ɴᴏᴛᴇ :** ᴅᴏɴ'ᴛ sʜᴀʀᴇ ɪᴛ ᴡɪᴛʜ ʏᴏᴜʀ ғʀɪᴇɴᴅ ᴀɴᴅ ᴀʟsᴏ ᴅᴏɴ'ᴛ sʜᴀʀᴇ ɪᴛ ᴏɴ ᴀɴʏ ɢʀᴏᴜᴘ, ʀᴇᴘʟʏ /revoke ᴛᴏ ʀᴇᴠᴏᴋᴇ ᴛʜɪs sᴇssɪᴏɴ**"
         await msg.reply(text)
         
